@@ -1,0 +1,12 @@
+{
+  "name": "kps-energy-web",
+  "version": "1.0.0",
+  "description": "KPS Energy Corporate Website",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'Building static site...'"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}

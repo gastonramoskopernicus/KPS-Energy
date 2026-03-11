@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Noticias | KPS Energy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header id="main-header" class="scrolled">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="assets/logo.png" alt="KPS Energy Logo">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="empresa.html">Empresa</a></li>
+                    <li><a href="soluciones.html">Soluciones</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="calculadora.html">Calculadora Solar</a></li>
+                </ul>
+                <div class="nav-cta"><a href="contacto.html" class="btn btn-primary">Cotizar</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding-top: 120px; padding-bottom: 100px;">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <span class="section-tag">Aprendizaje & Tendencias</span>
+                <h1 class="section-title">El Blog de KPS Energy</h1>
+                <p class="section-subtitle">Ideas, guías e información clave para entender el presente y futuro de la
+                    energía en Argentina.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;">
+                <article
+                    style="background: white; border: 1px solid var(--divider); border-radius: 15px; overflow: hidden;">
+                    <div style="height: 220px; background: url('assets/home.jpg') center/cover;"></div>
+                    <div style="padding: 30px;">
+                        <span
+                            style="font-size: 12px; color: var(--primary-green); font-weight: 700; text-transform: uppercase;">Guías</span>
+                        <h3 style="margin: 10px 0 15px;">Cuánto se puede ahorrar con energía solar en un hogar</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Analizamos el retorno
+                            de inversión y la reducción de factura en el contexto tarifario actual de Argentina.</p>
+                        <a href="#" style="font-weight: 600; color: var(--text-main);">Leer más <i
+                                class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+                    </div>
+                </article>
+
+                <article
+                    style="background: white; border: 1px solid var(--divider); border-radius: 15px; overflow: hidden;">
+                    <div style="height: 220px; background: url('assets/industry.jpg') center/cover;"></div>
+                    <div style="padding: 30px;">
+                        <span
+                            style="font-size: 12px; color: var(--primary-green); font-weight: 700; text-transform: uppercase;">Empresas</span>
+                        <h3 style="margin: 10px 0 15px;">Energía solar para industrias: beneficios y retorno</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Cómo transformar un
+                            techo industrial en una fuente de ahorro operativo constante.</p>
+                        <a href="#" style="font-weight: 600; color: var(--text-main);">Leer más <i
+                                class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+                    </div>
+                </article>
+
+                <article
+                    style="background: white; border: 1px solid var(--divider); border-radius: 15px; overflow: hidden;">
+                    <div style="height: 220px; background: url('assets/agro.jpg') center/cover;"></div>
+                    <div style="padding: 30px;">
+                        <span
+                            style="font-size: 12px; color: var(--primary-green); font-weight: 700; text-transform: uppercase;">Tecnología</span>
+                        <h3 style="margin: 10px 0 15px;">Baterías solares: cuándo convienen en Argentina</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Exploramos el rol de
+                            las baterías de litio frente a la inestabilidad de la red eléctrica.</p>
+                        <a href="#" style="font-weight: 600; color: var(--text-main);">Leer más <i
+                                class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer id="main-footer"></footer>
+    <script src="script.js"></script>
+    <script>
+        fetch('index.html').then(res => res.text()).then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            document.getElementById('main-footer').innerHTML = doc.getElementById('main-footer').innerHTML;
+        });
+    </script>
+</body>
+
+</html>

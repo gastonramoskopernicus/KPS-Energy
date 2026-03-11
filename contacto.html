@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | KPS Energy Argentina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header id="main-header" class="scrolled">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="assets/logo.png" alt="KPS Energy Logo">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="empresa.html">Empresa</a></li>
+                    <li><a href="soluciones.html">Soluciones</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="calculadora.html">Calculadora Solar</a></li>
+                </ul>
+                <div class="nav-cta"><a href="contacto.html" class="btn btn-primary">Cotizar</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding-top: 120px; padding-bottom: 100px;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px;">
+                <div>
+                    <span class="section-tag">Hablemos</span>
+                    <h1 style="font-size: 2.5rem; margin-bottom: 25px;">Transformá tu futuro energético</h1>
+                    <p style="color: var(--text-muted); margin-bottom: 40px;">Nuestro equipo de ingeniería te asesorará
+                        para encontrar la mejor solución según tu consumo y ubicación en Argentina.</p>
+
+                    <div style="display: grid; gap: 30px;">
+                        <div style="display: flex; gap: 20px; align-items: center;">
+                            <i class="fas fa-envelope" style="color: var(--primary-green); font-size: 20px;"></i>
+                            <div>
+                                <h4 style="font-size: 14px; text-transform: uppercase; color: var(--text-muted);">Email
+                                    Comercial</h4>
+                                <p style="font-weight: 600;">info@kpsenergy.com.ar</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px; align-items: center;">
+                            <i class="fas fa-phone" style="color: var(--primary-green); font-size: 20px;"></i>
+                            <div>
+                                <h4 style="font-size: 14px; text-transform: uppercase; color: var(--text-muted);">
+                                    Asesoramiento</h4>
+                                <p style="font-weight: 600;">+54 11 1234 5678</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px; align-items: center;">
+                            <i class="fas fa-map-marker-alt" style="color: var(--primary-green); font-size: 20px;"></i>
+                            <div>
+                                <h4 style="font-size: 14px; text-transform: uppercase; color: var(--text-muted);">
+                                    Oficina Central</h4>
+                                <p style="font-weight: 600;">Buenos Aires, Argentina</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style="background: white; border: 1px solid var(--divider); padding: 50px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <form id="contact-form" style="display: grid; gap: 20px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <input type="text" placeholder="Nombre y Apellido" required
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                            <input type="email" placeholder="Email" required
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <input type="text" placeholder="Empresa (Opcional)"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                            <select style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                                <option>Proyecto Hogar</option>
+                                <option>Proyecto Empresa</option>
+                                <option>Proyecto Agro/Industria</option>
+                                <option>Consulta Técnica</option>
+                            </select>
+                        </div>
+                        <textarea placeholder="Tu mensaje..." rows="5"
+                            style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;"></textarea>
+                        <button type="submit" class="btn btn-primary" style="padding: 15px;">Enviar Consulta</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="main-footer"></footer>
+    <script src="script.js"></script>
+    <script>
+        // Load footer
+        fetch('index.html').then(res => res.text()).then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            document.getElementById('main-footer').innerHTML = doc.getElementById('main-footer').innerHTML;
+        });
+    </script>
+</body>
+
+</html>

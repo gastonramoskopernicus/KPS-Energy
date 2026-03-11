@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresa | KPS Energy Argentina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header id="main-header" class="scrolled">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="assets/logo.png" alt="KPS Energy Logo">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="empresa.html">Empresa</a></li>
+                    <li><a href="soluciones.html">Soluciones</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="calculadora.html">Calculadora Solar</a></li>
+                </ul>
+                <div class="nav-cta"><a href="contacto.html" class="btn btn-primary">Cotizar</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding-top: 100px;">
+        <section class="about-hero" style="background: var(--bg-light); text-align: center;">
+            <div class="container">
+                <span class="section-tag">Sobre Nosotros</span>
+                <h1 class="section-title">Impulsando la transición energética en Argentina</h1>
+                <p class="section-subtitle">KPS Energy nace con la visión de transformar la forma en que hogares y
+                    empresas consumen energía, integrando ingeniería de precisión con tecnología de última generación.
+                </p>
+            </div>
+        </section>
+
+        <section class="vision-mission">
+            <div class="container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+                    <div>
+                        <h2 style="margin-bottom: 20px;">Nuestra Visión</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 30px;">Creemos que el futuro energético será
+                            distribuido, inteligente y renovable. Cada vez más usuarios producirán su propia energía,
+                            integrando almacenamiento, monitoreo y tecnología para optimizar el consumo.</p>
+                        <h2 style="margin-bottom: 20px;">Nuestra Misión</h2>
+                        <p style="color: var(--text-muted);">Acelerar la adopción de energías renovables ofreciendo
+                            soluciones confiables, eficientes y adaptadas al contexto energético de Argentina.</p>
+                    </div>
+                    <div
+                        style="background: url('assets/industry.jpg') center/cover; height: 400px; border-radius: 20px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="approach" style="background: var(--bg-dark); color: white;">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-title">Nuestro Enfoque</h2>
+                    <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">Entendemos la energía no solo como
+                        un costo, sino como una oportunidad de transformación.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px;">
+                    <div style="padding: 40px; border: 1px solid rgba(255,255,255,0.1); border-radius: 15px;">
+                        <i class="fas fa-microchip"
+                            style="font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px;"></i>
+                        <h3>Ingeniería Avanzada</h3>
+                        <p style="opacity: 0.7; margin-top: 15px;">Diseño técnico y dimensionamiento profesional para
+                            cada proyecto.</p>
+                    </div>
+                    <div style="padding: 40px; border: 1px solid rgba(255,255,255,0.1); border-radius: 15px;">
+                        <i class="fas fa-handshake"
+                            style="font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px;"></i>
+                        <h3>Compromiso Local</h3>
+                        <p style="opacity: 0.7; margin-top: 15px;">Conocemos los desafíos tarifarios y técnicos del
+                            mercado argentino.</p>
+                    </div>
+                    <div style="padding: 40px; border: 1px solid rgba(255,255,255,0.1); border-radius: 15px;">
+                        <i class="fas fa-tools"
+                            style="font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px;"></i>
+                        <h3>Soporte Técnico</h3>
+                        <p style="opacity: 0.7; margin-top: 15px;">Acompañamiento post-instalación y monitoreo continuo
+                            del sistema.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer"></footer>
+    <script src="script.js"></script>
+    <script>
+        // Load footer dynamically or just repeat for now as it's static site
+        fetch('index.html').then(res => res.text()).then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            document.getElementById('main-footer').innerHTML = doc.getElementById('main-footer').innerHTML;
+        });
+    </script>
+</body>
+
+</html>
