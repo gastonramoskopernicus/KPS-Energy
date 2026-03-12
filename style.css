@@ -141,6 +141,29 @@ header.scrolled {
     color: var(--primary-green);
 }
 
+/* Header Branding */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+}
+
+.logo-text {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--text-main);
+    letter-spacing: -0.5px;
+}
+
+.logo-text span {
+    color: var(--primary-green);
+}
+
 /* Section Common */
 section {
     padding: var(--section-padding);
