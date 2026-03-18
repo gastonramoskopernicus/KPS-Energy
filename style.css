@@ -190,3 +190,75 @@ section {
     max-width: 700px;
     margin: 0 auto 50px;
 }
+
+/* Header Responsive Layout */
+.nav-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+/* Fix desktop overlap for tablets/small laptops */
+@media (max-width: 1050px) {
+    .nav-wrapper {
+        gap: 15px;
+    }
+    .nav-links {
+        gap: 15px;
+    }
+    .nav-links a {
+        font-size: 14px;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Mobile Menu */
+@media (max-width: 850px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    .nav-wrapper {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--bg-white);
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        gap: 20px;
+        border-top: 1px solid var(--divider);
+    }
+    
+    .nav-wrapper.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .nav-links a {
+        font-size: 16px;
+    }
+}

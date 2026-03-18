@@ -10,4 +10,18 @@ window.addEventListener('scroll', () => {
 // Navigation logic and interactions
 document.addEventListener('DOMContentLoaded', () => {
     console.log('KPS Energy website initialized.');
+    
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const navWrapper = document.getElementById('nav-wrapper');
+    
+    if (mobileMenuBtn && navWrapper) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navWrapper.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            }
+        });
+    }
 });
