@@ -141,10 +141,16 @@
                         }
                     </style>
                     <form id="contact-form" class="contact-grid" novalidate>
-                        <!-- Web3Forms Configuración Oculta -->
+                        <!-- 
+                          WEB3FORMS CONFIGURACIÓN OBLIGATORIA
+                          - access_key: Vincula el formulario exclusivamente al dashboard de info@kpsenergy.com.ar
+                          - No existen auto-responders configurados, por lo que el usuario NO recibe correos automáticos
+                          - El campo Email ingresado por el usuario solo oficia de "Reply-To" para facilitar responderle
+                        -->
                         <input type="hidden" name="access_key" value="baf83103-17d6-4439-afcb-5d34ccb37111">
                         <input type="hidden" name="subject" value="Nueva consulta desde la web de KPS Energy">
                         <input type="hidden" name="from_name" value="KPS Energy Web">
+                        <!-- Campo Honeypot para protección Anti-Spam (Si se llena, el formulario es rechazado) -->
                         <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
                         <div class="contact-row">
