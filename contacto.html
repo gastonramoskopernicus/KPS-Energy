@@ -141,28 +141,34 @@
                         }
                     </style>
                     <form id="contact-form" class="contact-grid" novalidate>
+                        <!-- Web3Forms Configuración Oculta -->
+                        <input type="hidden" name="access_key" value="baf83103-17d6-4439-afcb-5d34ccb37111">
+                        <input type="hidden" name="subject" value="Nueva consulta desde la web de KPS Energy">
+                        <input type="hidden" name="from_name" value="KPS Energy Web">
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                         <div class="contact-row">
                             <div class="form-field">
-                                <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Nombre y Apellido" required>
+                                <input type="text" id="nombre" name="Nombre" class="form-input" placeholder="Nombre y Apellido" required>
                                 <span class="error-msg" id="error-nombre"></span>
                             </div>
                             <div class="form-field">
-                                <input type="email" id="email" name="email" class="form-input" placeholder="Email" required>
+                                <input type="email" id="email" name="Email" class="form-input" placeholder="Email" required>
                                 <span class="error-msg" id="error-email"></span>
                             </div>
                         </div>
                         <div class="contact-row">
                             <div class="form-field">
-                                <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="Teléfono" required>
+                                <input type="tel" id="telefono" name="Teléfono" class="form-input" placeholder="Teléfono" required>
                                 <span class="error-msg" id="error-telefono"></span>
                             </div>
                             <div class="form-field">
-                                <input type="text" id="empresa" name="empresa" class="form-input" placeholder="Empresa (Opcional)">
+                                <input type="text" id="empresa" name="Empresa" class="form-input" placeholder="Empresa (Opcional)">
                                 <span class="error-msg" id="error-empresa"></span>
                             </div>
                         </div>
                         <div class="form-field">
-                            <select id="motivo" name="motivo" class="form-input">
+                            <select id="motivo" name="Motivo" class="form-input">
                                 <option value="Proyecto Hogar">Proyecto Hogar</option>
                                 <option value="Proyecto Empresa">Proyecto Empresa</option>
                                 <option value="Proyecto Agro/Industria">Proyecto Agro/Industria</option>
@@ -170,7 +176,7 @@
                             </select>
                         </div>
                         <div class="form-field">
-                            <textarea id="mensaje" name="mensaje" class="form-input" placeholder="Tu mensaje..." rows="5" required></textarea>
+                            <textarea id="mensaje" name="Mensaje" class="form-input" placeholder="Tu mensaje..." rows="5" required></textarea>
                             <span class="error-msg" id="error-mensaje"></span>
                         </div>
                         
@@ -184,13 +190,8 @@
                             const form = document.getElementById('contact-form');
                             if (!form) return;
 
-                            // =====================================================================
-                            // CONFIGURACIÓN DE ENDPOINT
-                            // Destino final: info@kpsenergy.com.ar
-                            // Para activar la recepción, creá un formulario en Formspree u otro
-                            // servicio con ese correo de destino, y reemplazá esta URL con la tuya:
-                            // =====================================================================
-                            const ENDPOINT_URL = 'https://formspree.io/f/REEMPLAZAR_CON_TU_ID';
+                            // Endpoint de Web3Forms
+                            const ENDPOINT_URL = 'https://api.web3forms.com/submit';
 
                             const nombreInput = document.getElementById('nombre');
                             const emailInput = document.getElementById('email');
@@ -263,6 +264,12 @@
                             form.addEventListener('submit', async (e) => {
                                 e.preventDefault();
                                 
+                                // Anti-spam botcheck
+                                const botcheck = form.querySelector('input[name="botcheck"]');
+                                if (botcheck && botcheck.checked) {
+                                    return; // Bypass silencioso si es un bot
+                                }
+                                
                                 feedbackMsg.style.display = 'none';
                                 feedbackMsg.className = 'feedback-msg';
 
@@ -285,37 +292,24 @@
                                         }
                                     });
 
-                                    if (response.ok || (ENDPOINT_URL.includes('REEMPLAZAR_CON_TU_ID'))) {
-                                        // Fake success if the user hasn't configured it yet:
-                                        feedbackMsg.textContent = 'A la brevedad el equipo de KPS Energy se va a comunicar con vos!';
+                                    const json = await response.json();
+
+                                    if (response.ok && json.success) {
+                                        feedbackMsg.textContent = 'A la brevedad el equipo de KPS Energy se va a comunicar con vos.';
                                         feedbackMsg.classList.add('success');
                                         feedbackMsg.style.display = 'block';
                                         form.reset();
-                                        
-                                        if (ENDPOINT_URL.includes('REEMPLAZAR_CON_TU_ID')) {
-                                            console.warn('Configuracuión recomendada: Actualizá la URL de Formspree para que los envíos sean reales.');
-                                        }
                                     } else {
-                                        let errorData = null;
-                                        try { errorData = await response.json(); } catch(err) {}
-                                        console.error('Error:', errorData);
+                                        console.error('Error Web3Forms:', json);
                                         feedbackMsg.textContent = 'Hubo un problema al enviar tu consulta. Por favor, intentá nuevamente.';
                                         feedbackMsg.classList.add('error');
                                         feedbackMsg.style.display = 'block';
                                     }
                                 } catch (error) {
-                                    if (ENDPOINT_URL.includes('REEMPLAZAR_CON_TU_ID')) {
-                                        // To prevent throwing CORS errors on replacement URL
-                                        feedbackMsg.textContent = 'A la brevedad el equipo de KPS Energy se va a comunicar con vos!';
-                                        feedbackMsg.classList.add('success');
-                                        feedbackMsg.style.display = 'block';
-                                        form.reset();
-                                    } else {
-                                        console.error('Error red:', error);
-                                        feedbackMsg.textContent = 'Error de conexión. Revisá tu internet e intentá de nuevo.';
-                                        feedbackMsg.classList.add('error');
-                                        feedbackMsg.style.display = 'block';
-                                    }
+                                    console.error('Error red:', error);
+                                    feedbackMsg.textContent = 'Error de conexión. Revisá tu internet e intentá de nuevo.';
+                                    feedbackMsg.classList.add('error');
+                                    feedbackMsg.style.display = 'block';
                                 } finally {
                                     submitBtn.innerHTML = originalBtnText;
                                     submitBtn.disabled = false;
