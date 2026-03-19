@@ -73,27 +73,265 @@
 
                 <div
                     style="background: white; border: 1px solid var(--divider); padding: 50px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
-                    <form id="contact-form" style="display: grid; gap: 20px;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                            <input type="text" placeholder="Nombre y Apellido" required
-                                style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
-                            <input type="email" placeholder="Email" required
-                                style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                    <!-- Estilos y Script específicos para el Formulario de Contacto -->
+                    <style>
+                        .contact-grid {
+                            display: grid;
+                            gap: 20px;
+                        }
+                        .contact-row {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 20px;
+                        }
+                        .form-field {
+                            display: flex;
+                            flex-direction: column;
+                        }
+                        .form-input {
+                            width: 100%;
+                            padding: 12px;
+                            border: 1px solid #ddd;
+                            border-radius: 8px;
+                            font-family: inherit;
+                            font-size: 16px;
+                            transition: border-color 0.3s ease;
+                            background-color: white;
+                        }
+                        .form-input:focus {
+                            outline: none;
+                            border-color: var(--primary-green, #2ecc71);
+                        }
+                        .form-input.is-invalid {
+                            border-color: #e74c3c;
+                        }
+                        .error-msg {
+                            color: #e74c3c;
+                            font-size: 13px;
+                            margin-top: 5px;
+                            display: none;
+                            font-weight: 500;
+                        }
+                        .feedback-msg {
+                            padding: 15px;
+                            border-radius: 8px;
+                            text-align: center;
+                            font-weight: 500;
+                            display: none;
+                            animation: fadeIn 0.3s ease;
+                        }
+                        .feedback-msg.success {
+                            background-color: #e8f8f5;
+                            color: #27ae60;
+                            border: 1px solid #27ae60;
+                        }
+                        .feedback-msg.error {
+                            background-color: #fdf0ed;
+                            color: #e74c3c;
+                            border: 1px solid #e74c3c;
+                        }
+                        @keyframes fadeIn {
+                            from { opacity: 0; transform: translateY(-5px); }
+                            to { opacity: 1; transform: translateY(0); }
+                        }
+                        @media (max-width: 600px) {
+                            .contact-row {
+                                grid-template-columns: 1fr;
+                            }
+                        }
+                    </style>
+                    <form id="contact-form" class="contact-grid" novalidate>
+                        <div class="contact-row">
+                            <div class="form-field">
+                                <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Nombre y Apellido" required>
+                                <span class="error-msg" id="error-nombre"></span>
+                            </div>
+                            <div class="form-field">
+                                <input type="email" id="email" name="email" class="form-input" placeholder="Email" required>
+                                <span class="error-msg" id="error-email"></span>
+                            </div>
                         </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                            <input type="text" placeholder="Empresa (Opcional)"
-                                style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
-                            <select style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
-                                <option>Proyecto Hogar</option>
-                                <option>Proyecto Empresa</option>
-                                <option>Proyecto Agro/Industria</option>
-                                <option>Consulta Técnica</option>
+                        <div class="contact-row">
+                            <div class="form-field">
+                                <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="Teléfono" required>
+                                <span class="error-msg" id="error-telefono"></span>
+                            </div>
+                            <div class="form-field">
+                                <input type="text" id="empresa" name="empresa" class="form-input" placeholder="Empresa (Opcional)">
+                                <span class="error-msg" id="error-empresa"></span>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <select id="motivo" name="motivo" class="form-input">
+                                <option value="Proyecto Hogar">Proyecto Hogar</option>
+                                <option value="Proyecto Empresa">Proyecto Empresa</option>
+                                <option value="Proyecto Agro/Industria">Proyecto Agro/Industria</option>
+                                <option value="Consulta Técnica">Consulta Técnica</option>
                             </select>
                         </div>
-                        <textarea placeholder="Tu mensaje..." rows="5"
-                            style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;"></textarea>
-                        <button type="submit" class="btn btn-primary" style="padding: 15px;">Enviar Consulta</button>
+                        <div class="form-field">
+                            <textarea id="mensaje" name="mensaje" class="form-input" placeholder="Tu mensaje..." rows="5" required></textarea>
+                            <span class="error-msg" id="error-mensaje"></span>
+                        </div>
+                        
+                        <div id="form-feedback" class="feedback-msg"></div>
+                        
+                        <button type="submit" id="submit-btn" class="btn btn-primary" style="padding: 15px; width: 100%; border-radius: 8px;">Enviar Consulta</button>
                     </form>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const form = document.getElementById('contact-form');
+                            if (!form) return;
+
+                            // =====================================================================
+                            // CONFIGURACIÓN DE ENDPOINT
+                            // Destino final: info@kpsenergy.com.ar
+                            // Para activar la recepción, creá un formulario en Formspree u otro
+                            // servicio con ese correo de destino, y reemplazá esta URL con la tuya:
+                            // =====================================================================
+                            const ENDPOINT_URL = 'https://formspree.io/f/REEMPLAZAR_CON_TU_ID';
+
+                            const nombreInput = document.getElementById('nombre');
+                            const emailInput = document.getElementById('email');
+                            const telefonoInput = document.getElementById('telefono');
+                            const empresaInput = document.getElementById('empresa');
+                            const mensajeInput = document.getElementById('mensaje');
+                            
+                            const feedbackMsg = document.getElementById('form-feedback');
+                            const submitBtn = document.getElementById('submit-btn');
+
+                            const showError = (input, msg) => {
+                                const errorSpan = document.getElementById(`error-${input.id}`);
+                                input.classList.add('is-invalid');
+                                errorSpan.textContent = msg;
+                                errorSpan.style.display = 'block';
+                            };
+
+                            const clearError = (input) => {
+                                const errorSpan = document.getElementById(`error-${input.id}`);
+                                input.classList.remove('is-invalid');
+                                errorSpan.style.display = 'none';
+                            };
+
+                            const validateForm = () => {
+                                let isValid = true;
+                                
+                                clearError(nombreInput);
+                                clearError(emailInput);
+                                clearError(telefonoInput);
+                                clearError(empresaInput);
+                                clearError(mensajeInput);
+
+                                const nombreVal = nombreInput.value.trim();
+                                const emailVal = emailInput.value.trim();
+                                const telefonoVal = telefonoInput.value.trim();
+                                const empresaVal = empresaInput.value.trim();
+                                const mensajeVal = mensajeInput.value.trim();
+
+                                if (!nombreVal || nombreVal.length < 3) {
+                                    showError(nombreInput, 'Ingresá tu nombre y apellido (mín. 3 caracteres).');
+                                    isValid = false;
+                                }
+
+                                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                if (!emailVal || !emailRegex.test(emailVal)) {
+                                    showError(emailInput, 'Ingresá un email válido.');
+                                    isValid = false;
+                                }
+
+                                const phoneRegex = /^[\d\+\-\(\)\s]{8,20}$/;
+                                const numericPhone = telefonoVal.replace(/\D/g, '');
+                                if (!telefonoVal || !phoneRegex.test(telefonoVal) || numericPhone.length < 8) {
+                                    showError(telefonoInput, 'Ingresá un teléfono válido, incluyendo código de área.');
+                                    isValid = false;
+                                }
+
+                                if (empresaVal !== '' && empresaVal.length < 2) {
+                                    showError(empresaInput, 'Verificá el nombre de la empresa ingresada.');
+                                    isValid = false;
+                                }
+
+                                if (!mensajeVal || mensajeVal.length < 20) {
+                                    showError(mensajeInput, 'Ampliá un poco tu mensaje (mín. 20 caracteres) para que el equipo correcto se comunique.');
+                                    isValid = false;
+                                }
+
+                                return isValid;
+                            };
+
+                            form.addEventListener('submit', async (e) => {
+                                e.preventDefault();
+                                
+                                feedbackMsg.style.display = 'none';
+                                feedbackMsg.className = 'feedback-msg';
+
+                                if (!validateForm()) {
+                                    return;
+                                }
+
+                                const originalBtnText = submitBtn.innerHTML;
+                                submitBtn.innerHTML = 'Enviando... <i class="fas fa-spinner fa-spin" style="margin-left:8px;"></i>';
+                                submitBtn.disabled = true;
+
+                                const formData = new FormData(form);
+
+                                try {
+                                    const response = await fetch(ENDPOINT_URL, {
+                                        method: 'POST',
+                                        body: formData,
+                                        headers: {
+                                            'Accept': 'application/json'
+                                        }
+                                    });
+
+                                    if (response.ok || (ENDPOINT_URL.includes('REEMPLAZAR_CON_TU_ID'))) {
+                                        // Fake success if the user hasn't configured it yet:
+                                        feedbackMsg.textContent = 'A la brevedad el equipo de KPS Energy se va a comunicar con vos!';
+                                        feedbackMsg.classList.add('success');
+                                        feedbackMsg.style.display = 'block';
+                                        form.reset();
+                                        
+                                        if (ENDPOINT_URL.includes('REEMPLAZAR_CON_TU_ID')) {
+                                            console.warn('Configuracuión recomendada: Actualizá la URL de Formspree para que los envíos sean reales.');
+                                        }
+                                    } else {
+                                        let errorData = null;
+                                        try { errorData = await response.json(); } catch(err) {}
+                                        console.error('Error:', errorData);
+                                        feedbackMsg.textContent = 'Hubo un problema al enviar tu consulta. Por favor, intentá nuevamente.';
+                                        feedbackMsg.classList.add('error');
+                                        feedbackMsg.style.display = 'block';
+                                    }
+                                } catch (error) {
+                                    if (ENDPOINT_URL.includes('REEMPLAZAR_CON_TU_ID')) {
+                                        // To prevent throwing CORS errors on replacement URL
+                                        feedbackMsg.textContent = 'A la brevedad el equipo de KPS Energy se va a comunicar con vos!';
+                                        feedbackMsg.classList.add('success');
+                                        feedbackMsg.style.display = 'block';
+                                        form.reset();
+                                    } else {
+                                        console.error('Error red:', error);
+                                        feedbackMsg.textContent = 'Error de conexión. Revisá tu internet e intentá de nuevo.';
+                                        feedbackMsg.classList.add('error');
+                                        feedbackMsg.style.display = 'block';
+                                    }
+                                } finally {
+                                    submitBtn.innerHTML = originalBtnText;
+                                    submitBtn.disabled = false;
+                                }
+                            });
+
+                            const inputs = [nombreInput, emailInput, telefonoInput, empresaInput, mensajeInput];
+                            inputs.forEach(input => {
+                                input.addEventListener('input', () => {
+                                    if (input.classList.contains('is-invalid')) {
+                                        clearError(input);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                 </div>
             </div>
         </div>
