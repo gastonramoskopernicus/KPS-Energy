@@ -79,7 +79,7 @@ h1, h2, h3, h4 {
 
 .btn-primary {
     background-color: var(--primary-green);
-    color: var(--white);
+    color: #000000;
 }
 
 .btn-primary:hover {
@@ -96,7 +96,7 @@ h1, h2, h3, h4 {
 
 .btn-outline:hover {
     background-color: var(--primary-green);
-    color: var(--white);
+    color: #000000;
 }
 
 /* Navbar Style */
