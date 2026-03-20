@@ -142,14 +142,8 @@
                     </style>
                     <form id="contact-form" class="contact-grid" novalidate>
                         <!-- 
-                          WEB3FORMS CONFIGURACIÓN OBLIGATORIA
-                          - access_key: Vincula el formulario exclusivamente al dashboard de info@kpsenergy.com.ar
-                          - No existen auto-responders configurados, por lo que el usuario NO recibe correos automáticos
-                          - El campo Email ingresado por el usuario solo oficia de "Reply-To" para facilitar responderle
+                          Configuración Vercel Serverless + Resend
                         -->
-                        <input type="hidden" name="access_key" value="baf83103-17d6-4439-afcb-5d34ccb37111">
-                        <input type="hidden" name="subject" value="Nueva consulta desde la web de KPS Energy">
-                        <input type="hidden" name="from_name" value="KPS Energy Web">
                         <!-- Campo Honeypot para protección Anti-Spam (Si se llena, el formulario es rechazado) -->
                         <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
@@ -196,8 +190,8 @@
                             const form = document.getElementById('contact-form');
                             if (!form) return;
 
-                            // Endpoint de Web3Forms
-                            const ENDPOINT_URL = 'https://api.web3forms.com/submit';
+                            // Endpoint Backend Propio (Vercel API)
+                            const ENDPOINT_URL = '/api/contact';
 
                             const nombreInput = document.getElementById('nombre');
                             const emailInput = document.getElementById('email');
@@ -288,12 +282,14 @@
                                 submitBtn.disabled = true;
 
                                 const formData = new FormData(form);
+                                const data = Object.fromEntries(formData.entries());
 
                                 try {
                                     const response = await fetch(ENDPOINT_URL, {
                                         method: 'POST',
-                                        body: formData,
+                                        body: JSON.stringify(data),
                                         headers: {
+                                            'Content-Type': 'application/json',
                                             'Accept': 'application/json'
                                         }
                                     });
@@ -306,8 +302,8 @@
                                         feedbackMsg.style.display = 'block';
                                         form.reset();
                                     } else {
-                                        console.error('Error Web3Forms:', json);
-                                        feedbackMsg.textContent = 'Hubo un problema al enviar tu consulta. Por favor, intentá nuevamente.';
+                                        console.error('Error Backend:', json);
+                                        feedbackMsg.textContent = json.error || 'Hubo un problema al enviar tu consulta. Por favor, intentá nuevamente.';
                                         feedbackMsg.classList.add('error');
                                         feedbackMsg.style.display = 'block';
                                     }
