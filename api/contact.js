@@ -76,14 +76,23 @@ export default async function handler(req, res) {
       </div>
     `;
 
-    // Enviar el email usando Resend
-    const result = await resend.emails.send({
-      from: 'KPS Energy Web <no-reply@kpstech.com.ar>',
-      to: 'info@kpstech.com.ar',
+    const emailPayload = {
+      from: 'KPS Energy Web <no-reply@kpsenergy.com.ar>',
+      to: 'info@kpsenergy.com.ar',
       subject: 'Nueva consulta desde la web',
       replyTo: email,
       html: htmlContent
-    });
+    };
+
+    console.log('--- ENVIANDO EMAIL VÍA RESEND ---');
+    console.log('FROM:', emailPayload.from);
+    console.log('TO:', emailPayload.to);
+    console.log('REPLY_TO:', emailPayload.replyTo);
+    console.log('SUBJECT:', emailPayload.subject);
+    console.log('---------------------------------');
+
+    // Enviar el email usando Resend
+    const result = await resend.emails.send(emailPayload);
 
     if (result.error) {
       console.error('Resend API Error:', result.error);
