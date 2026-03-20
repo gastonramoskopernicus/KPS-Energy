@@ -78,9 +78,9 @@ export default async function handler(req, res) {
 
     // Enviar el email usando Resend
     const result = await resend.emails.send({
-      from: 'KPS Energy Web <no-reply@kpsenergy.com.ar>',
-      to: 'info@kpsenergy.com.ar',
-      subject: 'Nueva consulta desde la web de KPS Energy',
+      from: 'KPS Energy Web <no-reply@kpstech.com.ar>',
+      to: 'info@kpstech.com.ar',
+      subject: 'Nueva consulta desde la web',
       replyTo: email,
       html: htmlContent
     });
