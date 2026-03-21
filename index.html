@@ -19,6 +19,26 @@
 
     <!-- Custom Style -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Home Specific Logo State -->
+    <style>
+        #main-header:not(.scrolled) .logo img {
+            filter: brightness(0) invert(1);
+            transition: filter 0.3s ease;
+        }
+        #main-header.scrolled .logo img {
+            filter: none;
+            transition: filter 0.3s ease;
+        }
+        #main-header:not(.scrolled) .logo-text {
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+        #main-header.scrolled .logo-text {
+            color: var(--text-main);
+            transition: color 0.3s ease;
+        }
+    </style>
 </head>
 
 <body>
