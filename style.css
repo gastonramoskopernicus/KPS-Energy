@@ -151,6 +151,15 @@ header.scrolled {
 .logo img {
     height: 40px;
     width: auto;
+    transition: var(--transition);
+}
+
+header:not(.scrolled) .logo img {
+    filter: brightness(0) invert(1);
+}
+
+header.scrolled .logo img {
+    filter: none;
 }
 
 .logo-text {
@@ -158,6 +167,15 @@ header.scrolled {
     font-size: 1.4rem;
     color: var(--text-main);
     letter-spacing: -0.5px;
+    transition: var(--transition);
+}
+
+header:not(.scrolled) .logo-text {
+    color: #ffffff;
+}
+
+header.scrolled .logo-text {
+    color: var(--text-main);
 }
 
 .logo-text span {
