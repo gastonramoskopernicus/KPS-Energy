@@ -5,7 +5,7 @@
     "rewrites": [
         {
             "source": "/admin",
-            "destination": "/kps-admin/dist/index.html"
+            "destination": "/kps-admin/dist"
         },
         {
             "source": "/kps-admin/(.*)",
