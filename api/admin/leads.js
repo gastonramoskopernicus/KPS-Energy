@@ -1,3 +1,7 @@
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
 export default async function handler(req, res) {
     const authHeader = req.headers.authorization;
     if (!authHeader || authHeader !== 'Bearer 1234') { // Usamos el token estático simple por ahora
@@ -6,10 +10,6 @@ export default async function handler(req, res) {
 
     if (req.method === 'GET') {
         try {
-            // Importación dinámica para evitar problemas en el frío de Vercel (si a veces falla el build local)
-            const { PrismaClient } = await import('@prisma/client');
-            const prisma = new PrismaClient();
-
             const leads = await prisma.lead.findMany({
                 orderBy: { createdAt: 'desc' },
                 take: 50 // Limitamos a últimos 50
