@@ -10,6 +10,7 @@ model Category {
   id          Int       @id @default(autoincrement())
   name        String
   description String?
+  orderIndex  Int       @default(0)
   devices     Device[]
 }
 
@@ -20,13 +21,22 @@ model Device {
   category        Category  @relation(fields: [categoryId], references: [id])
   defaultWatts    Float
   defaultHoursDay Float
+  icon            String    @default("fa-plug")
+  description     String?
+  unitType        String    @default("Watts")
+  isActive        Boolean   @default(true)
+  orderIndex      Int       @default(0)
 }
 
 model Product {
   id            Int       @id @default(autoincrement())
-  type          String
+  type          String    // Ejemplo: 'panel', 'battery', 'inverter'
   name          String
-  capacity      Float
+  capacity      Float     // Capacidad tecnica Ej: 550 para panel, 4.8 para Bat
+  brand         String?
+  model         String?
+  dimensions    String?
+  surfaceM2     Float?
   efficiency    Float?
   price         Float?
   isActive      Boolean   @default(true)
