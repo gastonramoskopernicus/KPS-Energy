@@ -1,121 +1,120 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import './index.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [token, setToken] = useState(sessionStorage.getItem('kps_token') || null);
+  const [user, setUser] = useState('');
+  const [pass, setPass] = useState('');
+  const [leads, setLeads] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (user === 'admin' && pass === '1234') {
+      const authToken = 'Bearer 1234';
+      setToken(authToken);
+      sessionStorage.setItem('kps_token', authToken);
+    } else {
+      alert('Credenciales inválidas');
+    }
+  };
+
+  const logout = () => {
+    setToken(null);
+    sessionStorage.removeItem('kps_token');
+  };
+
+  useEffect(() => {
+    if (token) {
+      setLoading(true);
+      fetch('/api/admin/leads', {
+        headers: {
+          'Authorization': token
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setLeads(data.data);
+        } else {
+          if(data.error === 'Unauthorized') logout();
+        }
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+    }
+  }, [token]);
+
+  if (!token) {
+    return (
+      <div className="login-container">
+        <div className="login-box">
+          <h1>KPS Admin</h1>
+          <p style={{marginBottom: "30px", color: "var(--text-muted)"}}>Ingresa para gestionar cotizaciones</p>
+          <form className="login-form" onSubmit={handleLogin}>
+            <input type="text" placeholder="Usuario" value={user} onChange={e => setUser(e.target.value)} required />
+            <input type="password" placeholder="Contraseña" value={pass} onChange={e => setPass(e.target.value)} required />
+            <button type="submit" className="btn">Acceder al Panel</button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="admin-layout">
+      <div className="sidebar">
+        <div className="sidebar-header">
+          <h2>KPS Energy</h2>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+        <ul className="sidebar-menu">
+          <li className="active">Leads & Cotizaciones</li>
+          <li onClick={() => alert('Próximamente: CRUD de Inventario')}>Inventario (Paneles)</li>
+          <li onClick={logout} style={{marginTop: "auto", borderTop: "1px solid var(--divider)"}}>Cerrar Sesión</li>
+        </ul>
+      </div>
+      <div className="main-content">
+        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px"}}>
+          <h2>Leads Comerciales</h2>
+          <span style={{color: "var(--text-muted)"}}>{leads.length} Leads registrados</span>
         </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        {loading ? (
+          <p>Cargando información desde la base de datos segura...</p>
+        ) : (
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Contacto</th>
+                <th>Origen</th>
+                <th>Recomendación (kWp)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {leads.length === 0 ? (
+                <tr><td colSpan="5" style={{textAlign: "center"}}>No hay leads todavía. ¡Probá la calculadora web!</td></tr>
+              ) : (
+                leads.map(lead => (
+                  <tr key={lead.id}>
+                    <td>{new Date(lead.createdAt).toLocaleDateString()}</td>
+                    <td style={{fontWeight: 600}}>{lead.name}</td>
+                    <td>
+                      <div>{lead.email}</div>
+                      <div style={{fontSize: "0.85rem", color: "var(--text-muted)"}}>{lead.phone} • {lead.province}</div>
+                    </td>
+                    <td><span className="badge">{lead.userType}</span></td>
+                    <td style={{color: "var(--primary-green-dark)", fontWeight: "bold"}}>{lead.recommendedKw ? lead.recommendedKw + ' kWp' : 'No calculado'}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
