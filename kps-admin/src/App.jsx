@@ -2,26 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 
 function App() {
-  const [token, setToken] = useState(sessionStorage.getItem('kps_token') || null);
-  const [user, setUser] = useState('');
-  const [pass, setPass] = useState('');
+  const [token, setToken] = useState('Bearer 1234'); // Bypass provisorio
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (user === 'admin' && pass === '1234') {
-      const authToken = 'Bearer 1234';
-      setToken(authToken);
-      sessionStorage.setItem('kps_token', authToken);
-    } else {
-      alert('Credenciales inválidas');
-    }
-  };
-
   const logout = () => {
-    setToken(null);
-    sessionStorage.removeItem('kps_token');
+    alert('Login deshabilitado temporalmente para pruebas.');
   };
 
   useEffect(() => {
@@ -45,21 +31,7 @@ function App() {
     }
   }, [token]);
 
-  if (!token) {
-    return (
-      <div className="login-container">
-        <div className="login-box">
-          <h1>KPS Admin</h1>
-          <p style={{marginBottom: "30px", color: "var(--text-muted)"}}>Ingresa para gestionar cotizaciones</p>
-          <form className="login-form" onSubmit={handleLogin}>
-            <input type="text" placeholder="Usuario" value={user} onChange={e => setUser(e.target.value)} required />
-            <input type="password" placeholder="Contraseña" value={pass} onChange={e => setPass(e.target.value)} required />
-            <button type="submit" className="btn">Acceder al Panel</button>
-          </form>
-        </div>
-      </div>
-    );
-  }
+  // Login forms removed
 
   return (
     <div className="admin-layout">
