@@ -4,7 +4,7 @@
     "outputDirectory": ".",
     "rewrites": [
         {
-            "source": "/kps-admin",
+            "source": "/admin",
             "destination": "/kps-admin/dist/index.html"
         },
         {
