@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  devices     Device[]
+}
+
+model Device {
+  id              Int       @id @default(autoincrement())
+  name            String
+  categoryId      Int
+  category        Category  @relation(fields: [categoryId], references: [id])
+  defaultWatts    Float
+  defaultHoursDay Float
+}
+
+model Product {
+  id            Int       @id @default(autoincrement())
+  type          String
+  name          String
+  capacity      Float
+  efficiency    Float?
+  price         Float?
+  isActive      Boolean   @default(true)
+}
+
+model Parameter {
+  id            Int       @id @default(autoincrement())
+  key           String    @unique
+  value         Float
+  description   String?
+}
+
+model Lead {
+  id            Int       @id @default(autoincrement())
+  name          String
+  email         String
+  phone         String
+  province      String
+  userType      String
+  monthlyKwh    Float?
+  recommendedKw Float?
+  createdAt     DateTime  @default(now())
+}

@@ -416,3 +416,161 @@ section {
         font-size: 28px;
     }
 }
+
+/* ------------------------------------ */
+/* Advanced Solar Calculator Styles     */
+/* ------------------------------------ */
+
+.stepper-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.calc-content {
+    background: var(--bg-white);
+    border: 1px solid var(--divider);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    min-height: 200px;
+}
+
+.device-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.device-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid var(--divider);
+    border-radius: var(--border-radius);
+    background: var(--bg-white);
+    transition: var(--transition);
+}
+
+.device-card:hover {
+    border-color: var(--primary-green);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.device-card.active {
+    border-color: var(--primary-green);
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.15);
+    background-color: var(--primary-green-light);
+}
+
+.device-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.device-icon {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: var(--bg-light);
+    transition: var(--transition);
+}
+
+.device-card.active .device-icon {
+    color: var(--white);
+    background: var(--primary-green);
+}
+
+.device-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 2px;
+}
+
+.device-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--divider);
+    background: var(--bg-white);
+    color: var(--text-muted);
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.qty-btn:hover {
+    border-color: var(--primary-green);
+    color: var(--primary-green);
+}
+
+.device-card.active .qty-btn {
+    border-color: var(--primary-green);
+    color: var(--primary-green);
+}
+
+.qty-display {
+    font-weight: 700;
+    width: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.calc-sticky-footer {
+    position: sticky;
+    bottom: -1px; /* Avoid gap */
+    left: 0;
+    width: 100%;
+    background: var(--bg-white);
+    padding: 15px 30px;
+    border-top: 1px solid var(--divider);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+@media (max-width: 650px) {
+    .device-grid {
+        grid-template-columns: 1fr;
+    }
+    .calc-sticky-footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 20px;
+    }
+    .footer-action {
+        width: 100%;
+    }
+    .footer-action .btn {
+        width: 100%;
+    }
+}

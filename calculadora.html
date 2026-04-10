@@ -45,55 +45,14 @@
                         en Argentina.</p>
                 </div>
 
-                <form id="solar-calc-form" style="display: grid; gap: 25px;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div class="form-group">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Tipo de Usuario</label>
-                            <select id="user-type"
-                                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
-                                <option value="residencial">Hogar / Residencial</option>
-                                <option value="comercial">Empresa / PyME</option>
-                                <option value="industrial">Industria / Agro</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Provincia</label>
-                            <select id="province"
-                                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
-                                <option value="buenos-aires">Buenos Aires</option>
-                                <option value="cordoba">Córdoba</option>
-                                <option value="santa-fe">Santa Fe</option>
-                                <option value="mendoza">Mendoza</option>
-                                <option value="otros">Otras Provincias</option>
-                            </select>
-                        </div>
+                <!-- New Advanced Calculator Skeleton -->
+                <div id="solar-calculator-app">
+                    <div id="calc-stepper-nav" class="stepper-nav">
+                        <!-- Step indicators injected here -->
                     </div>
-
-                    <div class="form-group">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Gasto Promedio Mensual ($
-                            ARS)</label>
-                        <input type="number" id="monthly-bill" placeholder="Ej: 50000"
-                            style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary"
-                        style="width: 100%; padding: 15px; font-size: 1.1rem;">Calcular Ahorro Estimado</button>
-                </form>
-
-                <div id="calc-results"
-                    style="display: none; margin-top: 40px; padding: 30px; background: var(--primary-green-light); border-radius: 12px; text-align: center;">
-                    <h3 style="color: var(--primary-green-dark); margin-bottom: 15px;">Tu Potencial Energético</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div>
-                            <p style="font-size: 0.9rem; color: var(--text-muted);">Sistema Recomendado</p>
-                            <p id="rec-system" style="font-size: 1.5rem; font-weight: 700; color: var(--text-main);">5.2
-                                kWp</p>
-                        </div>
-                        <div>
-                            <p style="font-size: 0.9rem; color: var(--text-muted);">Ahorro Anual Est.</p>
-                            <p id="rec-savings"
-                                style="font-size: 1.5rem; font-weight: 700; color: var(--primary-green-dark);">$ 450.000
-                            </p>
+                    <div id="calc-step-content" class="calc-content">
+                        <div class="text-center" style="padding: 40px;">
+                            <p>Cargando calculadora avanzada...</p>
                         </div>
                     </div>
                 </div>
@@ -103,20 +62,8 @@
 
     <footer id="main-footer"></footer>
     <script src="script.js"></script>
+    <script type="module" src="assets/js/calculator/main.js"></script>
     <script>
-        document.getElementById('solar-calc-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const bill = document.getElementById('monthly-bill').value;
-            if (!bill) return;
-
-            // Simple mock logic for localization
-            const savings = bill * 12 * 0.7; // ~70% savings
-            const kw = bill / 10000; // rough scale
-
-            document.getElementById('rec-system').innerText = kw.toFixed(1) + ' kWp';
-            document.getElementById('rec-savings').innerText = '$ ' + Math.round(savings).toLocaleString('es-AR');
-            document.getElementById('calc-results').style.display = 'block';
-        });
 
         // Load footer
         fetch('index.html').then(res => res.text()).then(html => {

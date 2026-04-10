@@ -1,5 +1,15 @@
 {
     "version": 2,
     "cleanUrls": true,
-    "outputDirectory": "."
+    "outputDirectory": ".",
+    "rewrites": [
+        {
+            "source": "/kps-admin",
+            "destination": "/kps-admin/dist/index.html"
+        },
+        {
+            "source": "/kps-admin/(.*)",
+            "destination": "/kps-admin/dist/$1"
+        }
+    ]
 }

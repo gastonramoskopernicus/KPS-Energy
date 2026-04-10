@@ -4,10 +4,14 @@
   "description": "KPS Energy Corporate Website",
   "scripts": {
     "start": "serve .",
-    "build": "echo 'Building static site...'"
+    "build": "cd kps-admin && npm install && npm run build"
   },
   "dependencies": {
+    "@prisma/client": "^7.7.0",
     "resend": "^6.9.4",
     "serve": "^14.2.1"
+  },
+  "devDependencies": {
+    "prisma": "^7.7.0"
   }
 }
