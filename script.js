@@ -73,3 +73,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+
+// Google Ads Tag Injection (Global)
+document.addEventListener('DOMContentLoaded', () => {
+    const gtagId = 'AW-18118830571';
+    
+    // Evitar duplicaciones
+    if (document.querySelector(`script[src*="${gtagId}"]`)) {
+        return;
+    }
+
+    // Script asíncrono principal
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${gtagId}`;
+    document.head.appendChild(script);
+
+    // Initializer local y preparación para conversiones
+    const scriptInit = document.createElement('script');
+    scriptInit.innerHTML = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        // Configuracion principal
+        gtag('config', '${gtagId}');
+        
+        /* Preparado para futuros eventos de conversión:
+           - envío de formulario: gtag('event', 'conversion', { 'send_to': '${gtagId}/form_submit' });
+           - click en WhatsApp: gtag('event', 'conversion', { 'send_to': '${gtagId}/whatsapp_click' });
+           - click en solicitar cotización: gtag('event', 'conversion', { 'send_to': '${gtagId}/quote_request' });
+           - click en contactar especialista: gtag('event', 'conversion', { 'send_to': '${gtagId}/contact_specialist' });
+        */
+    `;
+    document.head.appendChild(scriptInit);
+    
+    console.log('Google Ads Tag initialized globally via script.js.');
+});
