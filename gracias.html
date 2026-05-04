@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracias por tu consulta | KPS Energy</title>
+    <meta name="description" content="Nuestros expertos en energía solar y renovable están a disposición para asesorarte sin cargo. Obtené tu cotización sin compromiso para paneles solares residenciales, empresas o agro.">
+    <!-- Meta SEO / Social -->
+    <meta property="og:title" content="Contacto y Asesoramiento Sin Costo | KPS Energy">
+    <meta property="og:description" content="Cotización sin compromiso y evaluación gratuita de tu sistema fotovoltaico o de backup. Da el salto a la energía renovable en Argentina.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Fine SEO technical config -->
+    <link rel="canonical" href="https://kpsenergy.com.ar/contacto.html">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <meta name="robots" content="noindex">
+</head>
+
+<body>
+    <header id="main-header" class="scrolled">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="assets/logo.png" alt="KPS Energy Logo"><div class="logo-text">KPS <span>Energy</span></div>
+                </a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="nav-wrapper" id="nav-wrapper">
+                    <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="empresa.html">Empresa</a></li>
+                    <li><a href="soluciones.html">Soluciones</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="calculadora.html">Calculadora Solar</a></li>
+                </ul>
+                <div class="nav-cta"><a href="contacto.html" class="btn btn-primary">Cotizar</a></div>
+            </div>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding-top: 150px; padding-bottom: 120px; text-align: center;">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto; background: white; padding: 50px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); border: 1px solid var(--divider);">
+                <i class="fas fa-check-circle" style="color: var(--primary-green); font-size: 60px; margin-bottom: 20px;"></i>
+                <h1 style="font-size: 2.2rem; margin-bottom: 15px;">¡Gracias por tu consulta!</h1>
+                <h3 style="font-size: 1.2rem; font-weight: 500; margin-bottom: 15px; color: var(--text-main);">Nuestro equipo de KPS Energy se va a comunicar con vos a la brevedad.</h3>
+                <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.05rem;">Estamos analizando tu solicitud para ofrecerte la mejor solución en energía solar, adaptada a tu consumo y necesidad.</p>
+                
+                <p style="font-size: 0.9rem; font-weight: 600; color: #27ae60; background: #e8f8f5; padding: 10px; border-radius: 8px; display: inline-block; margin-bottom: 30px;">
+                    <i class="fas fa-clock" style="margin-right: 5px;"></i> Respuesta en menos de 24 hs | Asesoramiento sin costo
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <a href="/" class="btn btn-primary" style="padding: 15px; border-radius: 8px; font-weight: 600; font-size: 1.1rem; text-decoration: none;">Volver al inicio</a>
+                    <a href="https://wa.me/5491165093050?text=Hola,%20quiero%20recibir%20asesoramiento%20sobre%20soluciones%20de%20energ%C3%ADa%20solar%20de%20KPS%20Energy." target="_blank" class="btn" style="padding: 15px; border-radius: 8px; font-weight: 600; font-size: 1.1rem; text-decoration: none; border: 2px solid #25D366; color: #25D366; background: white;"><i class="fab fa-whatsapp"></i> Hablar por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <footer id="main-footer"></footer>
+    <script src="script.js"></script>
+    <script>
+        // Load footer
+        fetch('index.html').then(res => res.text()).then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            document.getElementById('main-footer').innerHTML = doc.getElementById('main-footer').innerHTML;
+        });
+    </script>
+</body>
+</html>

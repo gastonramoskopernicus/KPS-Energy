@@ -10,10 +10,10 @@
     --bg-dark: #1a1a1a;
     --divider: #ecf0f1;
     --white: #ffffff;
-    
+
     /* Typography */
     --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    
+
     /* Spacing */
     --section-padding: 80px 0;
     --container-width: 1200px;
@@ -51,12 +51,17 @@ img {
 }
 
 /* Typography Utilities */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-weight: 700;
     line-height: 1.2;
 }
 
-.text-center { text-align: center; }
+.text-center {
+    text-align: center;
+}
 
 /* Container */
 .container {
@@ -113,7 +118,7 @@ header {
 header.scrolled {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
     padding: 10px 0;
 }
 
@@ -210,12 +215,15 @@ section {
     .nav-wrapper {
         gap: 15px;
     }
+
     .nav-links {
         gap: 15px;
     }
+
     .nav-links a {
         font-size: 14px;
     }
+
     .btn {
         padding: 10px 20px;
         font-size: 14px;
@@ -227,7 +235,7 @@ section {
     .menu-toggle {
         display: block;
     }
-    
+
     .nav-wrapper {
         position: absolute;
         top: 100%;
@@ -237,7 +245,7 @@ section {
         flex-direction: column;
         align-items: center;
         padding: 30px 20px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
         opacity: 0;
         visibility: hidden;
         transform: translateY(-10px);
@@ -245,19 +253,19 @@ section {
         gap: 20px;
         border-top: 1px solid var(--divider);
     }
-    
+
     .nav-wrapper.active {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
     }
-    
+
     .nav-links {
         flex-direction: column;
         gap: 20px;
         text-align: center;
     }
-    
+
     .nav-links a {
         font-size: 16px;
     }
@@ -277,7 +285,7 @@ section {
 .wa-panel {
     background: var(--bg-white);
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     width: 300px;
     margin-bottom: 20px;
     overflow: hidden;
@@ -332,7 +340,7 @@ section {
     border-radius: 0 8px 8px 8px;
     font-size: 14px;
     color: var(--text-main);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     margin-bottom: 15px;
     position: relative;
     line-height: 1.5;
@@ -407,9 +415,11 @@ section {
         bottom: 15px;
         right: 15px;
     }
+
     .wa-panel {
         width: 280px;
     }
+
     .wa-button {
         width: 55px;
         height: 55px;
@@ -457,7 +467,7 @@ section {
 .device-card:hover {
     border-color: var(--primary-green);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .device-card.active {
@@ -542,7 +552,8 @@ section {
 
 .calc-sticky-footer {
     position: sticky;
-    bottom: -1px; /* Avoid gap */
+    bottom: -1px;
+    /* Avoid gap */
     left: 0;
     width: 100%;
     background: var(--bg-white);
@@ -552,7 +563,7 @@ section {
     justify-content: space-between;
     align-items: center;
     z-index: 10;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
 }
@@ -561,15 +572,18 @@ section {
     .device-grid {
         grid-template-columns: 1fr;
     }
+
     .calc-sticky-footer {
         flex-direction: column;
         gap: 15px;
         text-align: center;
         padding: 20px;
     }
+
     .footer-action {
         width: 100%;
     }
+
     .footer-action .btn {
         width: 100%;
     }

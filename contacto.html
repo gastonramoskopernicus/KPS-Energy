@@ -309,10 +309,8 @@
                                     const json = await response.json();
 
                                     if (response.ok && json.success) {
-                                        feedbackMsg.textContent = 'A la brevedad el equipo de KPS Energy se va a comunicar con vos.';
-                                        feedbackMsg.classList.add('success');
-                                        feedbackMsg.style.display = 'block';
-                                        form.reset();
+                                        // Redireccion a Thank You Page para Google Ads Tracking
+                                        window.location.href = '/gracias';
                                     } else {
                                         console.error('Error Backend:', json);
                                         feedbackMsg.textContent = json.error || 'Hubo un problema al enviar tu consulta. Por favor, intentá nuevamente.';
